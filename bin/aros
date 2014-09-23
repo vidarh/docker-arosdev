@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. config.inc.sh
+
+curdir="`pwd`"
+cmd=$1
+
+case "$cmd" in
+     "download" )	aros-download
+     			;;
+     "config"	)	aros-config
+     			;;
+     "build"	)	aros-build
+     			;;
+esac
+
+cd "$curdir"
+exit 0
+			

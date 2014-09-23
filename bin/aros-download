@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Based on gimmearos.sh by Matthias Rustler.
+# This script extracts just the configure step as a separate script
+
+. config.inc.sh
+
+curdir="`pwd`"
+
+input=""
+until [ "$input" = "9" ]
+do
+    echo -e "\nStep 2: Get the sources from the repository"
+    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo -e "\nYou can either use Subversion or Git. Git doesn't require"
+    echo -e   "a password, but you'll get only read-only access."
+    echo -e   "The repositories will be checked out into the current directory."
+    echo -e "\nABI V1 is the current development version which is no longer"
+    echo -e   "binary compatible with V0."
+    echo -e "\nABI V1 with | ABI V0 with | ABI V1   |"
+    echo -e   "Subversion  | Subversion  | with GIT |       Content"
+    echo -e   "------------+-------------+----------+--------------------------"
+    echo -e   "     1      |      11     |    21    | Get AROS core (required)"
+    echo -e   "     2      |      12     |    22    | Get contrib (optional)"
+    echo -e "\n     3      |      13     |    23    | Get ports source (optional, needs contrib)"
+    echo -e "\n     4      |      14     |    ---   | Get documentation source (optional)"
+    echo -e   "     5      |      15     |    ---   | Get binaries (wallpapers, logos etc.) (optional)"
+    echo -e "\n0 .. Exit"
+
+    echo -e "\nEnter number and press <Enter>:"
+
+    read input
+    case "$input" in
+        1 ) echo -e "\nGetting AROS V1 core with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/trunk/AROS "$srcdir"
+            ;;
+        2 ) echo -e "\nGetting contrib V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/trunk/contrib "$srcdir/contrib"
+            ;;
+        3 ) echo -e "\nGetting ports V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/trunk/ports "$srcdir/ports"
+            ;;
+        4 ) echo -e "\nGetting documentation V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/trunk/documentation "$srcdir/documentation"
+            ;;
+        5 ) echo -e "\nGetting binaries V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/trunk/binaries "$srcdir/binaries"
+            ;;
+
+        11 ) echo -e "\nGetting AROS V0 core with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/branches/ABI_V0/AROS "$srcdir_v0"
+            ;;
+        12 ) echo -e "\nGetting contrib V0 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/branches/ABI_V0/contrib "$srcdir_v0/contrib"
+            ;;
+        13 ) echo -e "\nGetting ports V0 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/branches/ABI_V0/ports "$srcdir_v0/ports"
+            ;;
+        14 ) echo -e "\nGetting documentation V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/branches/ABI_V0/documentation "$srcdir_v0/documentation"
+            ;;
+        15 ) echo -e "\nGetting binaries V1 with Subversion...\n"
+            svn checkout https://svn.aros.org/svn/aros/branches/ABI_V0/binaries "$srcdir_v0/binaries"
+            ;;
+
+        21 ) echo -e "\nGetting AROS V1 core with Git...\n"
+            git clone git://repo.or.cz/AROS.git "$srcdir"
+            ;;
+        22 ) echo -e "\nGetting contrib V1 with Git...\n"
+            git clone git://repo.or.cz/AROS-Contrib.git "$srcdir/contrib"
+            ;;
+        23 ) echo -e "\nGetting ports V1 with Git...\n"
+            git clone git://repo.or.cz/AROS-Ports.git "$srcdir/ports"
+            ;;
+
+        0 ) exit 0
+            ;;
+    esac
+done
+
+
+cd "$curdir"
+
+exit 0

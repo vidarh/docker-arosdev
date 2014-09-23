@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# Based on gimmearos.sh by Matthias Rustler.
+# This script extracts just the configure step as a separate script
+
+. config.inc.sh
+
+curdir="`pwd`"
+
+input=""
+until [ "$input" = "9" ]
+do
+    cd "$curdir"
+    echo -e "\nStep 4: Building"
+    echo -e   "~~~~~~~~~~~~~~~~"
+    echo -e "\nYou can only build what you've already configured."
+    echo -e "\nABI V1 | ABI V0 |"
+    echo -e   "-------+--------+----------------------------"
+    echo -e   "   1   |   11   | linux-i386   (32-bit) debug"
+    echo -e   "   2   |   12   | linux-i386   (32-bit)"
+    echo -e   "   3   |   13   | linux-x86_64 (64-bit) debug"
+    echo -e   "   4   |   14   | linux-x86_64 (64-bit)"
+    echo -e   "   5   |   15   | pc-i386      (32-bit)"
+    echo -e   "   6   |   16   | pc-x86_64    (64-bit)"
+    echo -e "\n9 .. Leave loop, exit"
+
+    echo -e "\nEnter number and press <Enter>:"
+
+    read input
+    case "$input" in
+	0 ) exit 0
+	    ;;
+
+        1 ) echo -e "\nBuilding linux-i386 V1 with full debug...\n"
+            cd aros-linux-i386-dbg
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-i386-dbg/bin/<target>/AROS"
+            ;;
+        2 ) echo -e "\nBuilding linux-i386 V1 without debug...\n"
+            cd aros-linux-i386
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-i386/bin/<target>/AROS"
+            ;;
+        3 ) echo -e "\nBuilding linux-x86_64 V1 with full debug...\n"
+            cd aros-linux-x86_64-dbg
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-x86_64-dbg/bin/<target>/AROS"
+            ;;
+        4 ) echo -e "\nBuilding linux-x86_64 V1 without debug...\n"
+            cd aros-linux-x86_64
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-x86_64/bin/<target>/AROS"
+            ;;
+        5 ) echo -e "\nBuilding pc-i386 V1...\n"
+            cd aros-pc-i386
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-pc-i386/bin/<target>/AROS"
+            ;;
+        6 ) echo -e "\nBuilding pc-x86_64 V1...\n"
+            cd aros-pc-x86_64
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-pc-x86_64/bin/<target>/AROS"
+            ;;
+
+
+        11 ) echo -e "\nBuilding linux-i386 V0 with full debug...\n"
+            cd aros-linux-i386-v0-dbg
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-i386-v0-dbg/bin/<target>/AROS"
+            ;;
+        12 ) echo -e "\nBuilding linux-i386 V0 without debug...\n"
+            cd aros-linux-i386-v0
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-i386-v0/bin/<target>/AROS"
+            ;;
+        13 ) echo -e "\nBuilding linux-x86_64 V0 with full debug...\n"
+            cd aros-linux-x86_64-v0-dbg
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-x86_64-dbg/bin/<target>/AROS"
+            ;;
+        14 ) echo -e "\nBuilding linux-x86_64 V0 without debug...\n"
+            cd aros-linux-x86_64-v0
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-linux-x86_64-v0/bin/<target>/AROS"
+            ;;
+        15 ) echo -e "\nBuilding pc-i386 V0...\n"
+            cd aros-pc-i386-v0
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-pc-i386-v0/bin/<target>/AROS"
+            ;;
+        16 ) echo -e "\nBuilding pc-x86_64 V0...\n"
+            cd aros-pc-x86_64-v0
+            make "-j"$cpucoresforcompile
+            make default-x11keymaptable
+            echo -e "\nIf everything went well AROS will be available"
+            echo -e "in the directory aros-pc-x86_64-v0/bin/<target>/AROS"
+            ;;
+
+    esac
+done
+
+cd "$curdir"
+exit 0
