@@ -4,4 +4,4 @@
 
 EXTRA_OPTS=$@
 
-docker run -i --rm -t -v=/opt/volumes/aros:/home/aros -v=/root:/root --name arosdev -p 0.0.0.0::22 -p 0.0.0.0:5901:5901 -p 0.0.0.0:5801:5801 -u root $EXTRA_OPTS arosdev /usr/sbin/sshd -D
+docker run -i --rm -t -v=/opt/volumes/aros:/home/aros -v=/root:/root --name arosdev -p 0.0.0.0::22 -p 0.0.0.0:5901:5901 -p 0.0.0.0:5801:5801 -u root $EXTRA_OPTS vidarh/arosdev /usr/sbin/sshd -D
