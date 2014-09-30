@@ -39,6 +39,12 @@ FIXME: Alternative: Daemonize under Docker
 
 ## FIXME: AROS config ##
 
+## Running locally ##
+
+If you have built a version of AROS-hosted that can run in your host, you can cd into a suitable
+sub-directory of /opt/volumes/aros and start AROS as usual in the host without running the dev container
+
+
 ## Running ssh ##
 
 The Dockerfile sets up an 'aros' user. If you run the container with sshd (see run-arosdev-ssh as an
