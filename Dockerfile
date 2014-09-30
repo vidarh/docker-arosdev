@@ -39,15 +39,6 @@ RUN rm /etc/locale.gen && dpkg-reconfigure locales
 
 RUN apt-get -y install vnc4server
 
-## ---- XPRA support (xpra.org)
-
-#ADD winswitch-gpg.asc /tmp/
-#RUN apt-key add /tmp/winswitch-gpg.asc
-#ADD winswitch.list /etc/apt/sources.list.d/
-#RUN apt-get update
-#RUN apt-get -y install xpra
-
-
 ## ----- SSH Server
 
 RUN apt-get -y install openssh-server
@@ -59,6 +50,10 @@ RUN /usr/bin/ssh-keygen -A
 ## ------ "aros-*" helper commands
 ADD bin/ /usr/local/bin/
 
+
+## MISC DEBUG
+
+RUN apt-get -y install telnet strace net-tools
 
 
 ## ------- Set up a suitable user
