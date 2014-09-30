@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# This script will run an arosdev container as a "one-off" that will wipe itself when it exits.
+
+EXTRA_OPTS=$@
+
+cp start-vnc /opt/volumes/aros/bin/
+
+docker run -i --rm -t -v=/opt/volumes/aros:/home/aros -p 5901:5901 $EXTRA_OPTS vidarh/arosdev bin/start-vnc
+

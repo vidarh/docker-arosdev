@@ -1,0 +1,5 @@
+#!/bin/sh
+
+vncserver -geometry 1850x1016
+cd AROS
+DISPLAY=:1 boot/linux/AROSBootstrap
