@@ -4,4 +4,4 @@
 
 EXTRA_OPTS=$@
 
-docker run -i --rm -t -v=/opt/volumes/aros:/home/aros $EXTRA_OPTS arosdev /bin/bash
+docker run -i --rm -t -v=/opt/volumes/aros:/home/aros -p 5901:5901 $EXTRA_OPTS vidarh/arosdev /bin/bash
