@@ -14,35 +14,36 @@ on the host as /home/aros in the container.
 
 ## Preparation ##
 
- 1. ./downloadaros will download AROS v1 (core, contrib and ports) with git, and then give you
- the option of setting up the git repository to work with svn. This step will only be taken
- if the target directory does not already exist.
+ * Create an /opt/volumes/aros directory.
+ * Copy bin to /opt/volumes/aros/bin
+ * Start the container with ./run-arosdev and download/build an AROS version using
+   * "aros download"
+   * "aros config"
+   * "aros build"
  
+(These are extracted from gimmearos.sh by Matthias Rust which is also available unchanged in
+bin)
+
+ * Optionally symlink the root directory of the build of your preference to /home/aros/AROS in
+   the container. This is used if you run ./run-arosdev-vnc
+   
+NOTE: The example invocations in run-arosdev-* use one-off containers that are wiped when killed.
+However anything mounted in a volume from the host persists, so in other words: make all your changes
+in /home/aros (in the container) or /opt/volumes/aros (on the host). If you want to make your
+changes persist elsewhere, you need to change the Dockerfile and rebuild.
+
 
 FIXME: systemd setup
 FIXME: Alternative: Daemonize under Docker
 
-FIXME: What about Wanderer?
 
 ## FIXME: AROS config ##
 
 ## Running ssh ##
 
-FIXME: Setting up ssh-keys
-
-## Running XPRA ##
-
-FIXME: Simplify: Specify a default port in the script
-
- * Start ssh
-
- * SSH in, cd to right directory:
-   xpra start :100 --start-child='cd '`pwd`' && boot/linux/AROSBootstrap'
-   
- * On host: docker ps to obtain port for ssh daemon
-
- * On client machine:
-   xpra attach --ssh='ssh -p [port] -l aros' ssh:[ip of host]:100
+The Dockerfile sets up an 'aros' user. If you run the container with sshd (see run-arosdev-ssh as an
+example), you may want to add your ssh public-key to /opt/volumes/aros/.ssh/authorized_keys on the
+host, which will be mapped to /home/aros/.ssh/authorized_keys
 
 
 ## Running VNC ##
