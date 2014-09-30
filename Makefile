@@ -1,4 +1,4 @@
-PREFIX=
+PREFIX=vidarh/
 NAME=arosdev
 
 all: build
