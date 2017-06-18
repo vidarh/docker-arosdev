@@ -10,6 +10,7 @@ RUN apt-get update
 RUN apt-get -y install subversion git-core gcc g++ make gawk bison flex bzip2 netpbm
 RUN apt-get -y install autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev
 RUN apt-get -y install libxxf86vm-dev libpng12-dev gcc-multilib libsdl1.2-dev byacc
+RUN apt-get -y install libxcursor-dev
 
 # Pre-requisite for downloading crosstools etc.
 RUN apt-get -y install wget
